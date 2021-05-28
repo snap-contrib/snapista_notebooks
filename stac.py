@@ -41,50 +41,18 @@ def get_bands(item):
     
     return [b.common_name for b in eo_item.bands]
 
-def get_asset(item, band_name):
+def get_asset(item, band):
     
     asset = None
     
-    eo_item = extensions.eo.EOItemExt(item)
-    
     # Get bands
-    if (eo_item.bands) is not None:
-  
-        for index, band in enumerate(eo_item.bands):
-            
-            print(item.assets)
-            print(item.assets.keys())
-            
-            if band.name in item.assets.keys():
+    if band is not None:
+        
+        if band.common_name in item.assets.keys():
                 
-                asset = item.assets[band.name]
-                print(asset)
-                asset.href = fix_asset_href(asset.get_absolute_href())
-                print(asset.href)
-                
-                stop
-                
-                
-#             print(index, band.name, band.common_name)
-#             print(item.assets)
-            
-#             stop
-            
-#             if band.common_name in [band_name]: 
-#                 asset = item.assets[band.name]
-#                 print(asset)
-#                 stop
-#                 try:
-#                     asset = item.assets[band.common_name] # for L2A products (not calibrated for charter)
-#                     asset.href = fix_asset_href(asset.get_absolute_href())
-                    
-#                     print(index, band.name, band.common_name, asset.href)
-            
-#                 except:
-#                     print(f'{index}, {band.name}, {band.common_name} --> no assets')
-                    
-# #                 
-#                 break
+            asset = item.assets[band.common_name]
+            asset.href = fix_asset_href(asset.get_absolute_href())
+#             print(asset, asset.href)
     
     return asset
 
@@ -116,7 +84,7 @@ def get_asset_property(item, band_name, prop):
                         return asset.properties["eo:bands"][index][prop]
 
 def fix_asset_href(uri):
-    print('-', uri)
+#     print('-', uri)
     parsed = urlparse(uri)
     
     if parsed.scheme.startswith('http'):
