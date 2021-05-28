@@ -1,0 +1,11 @@
+dependencies:
+  - python
+  - jupyterlab
+  - nbconvert
+  - nb_conda
+  - conda-build
+  - mamba
+  - pip:
+    - jupyter-server-proxy
+  - cookiecutter
+  - nodejs
